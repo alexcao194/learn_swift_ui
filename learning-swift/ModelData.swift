@@ -16,4 +16,5 @@ class ModelData {
         "haha",
         "hehe3"
     ]
+    var hikes: [Int] = [10, 15, 12, 10, 25, 12, 15, 12, 10]
 }
