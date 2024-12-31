@@ -8,12 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(ModelData.self) var modelData
+    @State private var onlyShowHehe = false
+    
+    var filteredImages: [String] {
+        modelData.images.filter{ image in
+            image.starts(with: "hehe") || !onlyShowHehe
+        }
+    }
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Toggle(isOn: $onlyShowHehe) {
+                Text("Show Only Hehe")
+            }
+            NavigationSplitView {
+                List(filteredImages, id: \.self) { image in
+                    NavigationLink {
+                        CustomImage()
+                    } label: {
+                        Text(image)
+                    }
+                }
+                .animation(.default, value: filteredImages)
+                .navigationTitle("Hehe Routes")
+            } detail: {
+                Text("Select an item")
+            }
         }
         .padding()
     }
@@ -21,4 +42,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(ModelData())
 }
