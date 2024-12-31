@@ -9,11 +9,40 @@ import SwiftUI
 
 @main
 struct learning_swiftApp: App {
-    @State private var modelData = ModelData()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(modelData)
+            AppNe()
         }
+    }
+}
+
+struct AppNe: View {
+    @State private var modelData = ModelData()
+    var body: some View {
+        TabView {
+            ContentView()
+                .tag("content view")
+            CategoryHome()
+                .tag("category home")
+        }
+    }
+}
+
+
+#Preview {
+    let previewModelData = ModelData()
+    TabView {
+        ContentView()
+            .environment(previewModelData)
+            .tabItem {
+                Label("Bullshit", systemImage: "star")
+            }
+            .tag("content view")
+        CategoryHome()
+            .tabItem {
+                Label("Category", systemImage: "book")
+            }
+            .tag("category home")
     }
 }
